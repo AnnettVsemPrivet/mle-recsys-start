@@ -2,25 +2,6 @@
 
 ## Склонируйте репозиторий
 
-Убедитесь, что на вашей ВМ установлено git-расширение [LFS](https://git-lfs.com/) для работы с большими файлами, попробовав вызвать его
-
-```
-git lfs version
-```
-
-Если команда выше не возвращает версию расширения, то установите его
-
-```
-git lfs install
-```
-
-так не сработало, сделала так:
-
-$ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
-$ sudo apt-get install git-lfs
-
-Данное расширение необходимо для получения файлов с данными из репозитория.
-
 Склонируйте на свою ВМ начальный репоизиторий:
 
 ```
@@ -29,7 +10,7 @@ git clone git@github.com:practicum-mle/mle-recsys-start.git
 
 ## Поставьте Python-пакеты
 
-Для работы со спринтом используются Python-пакеты, которые могли не встретиться в предыдущих спринтах, и поэтому вероятно отсутствующие в системе. Данные пакеты следует поставить. Для чего рекомендуется создать новое окружение, и, используя файл `requirements.txt` из директории репозитория, установить их.
+Для работы со спринтом используются Python-пакеты, которые могли не встретиться в предыдущих спринтах, и поэтому вероятно отсутствующие в системе. Данные пакеты следует поставить. Для чего рекомендуется создать новое окружения, и, используя файл `requirements.txt` из директории репозитория, установить их.
 
 Создать новое виртуальное окружение (за пределами директории репозитория) можно командой:
 
@@ -50,6 +31,40 @@ python3 -m venv env_recsys_start
 ```
 pip install -r requirements.txt
 ```
+
+### Скачайте файлы с данными
+
+Для начала работы понадобится два файла с данными:
+- [books.parquet](https://storage.yandexcloud.net/mle-data/goodsread/books.parquet)
+- [interactions.parquet](https://storage.yandexcloud.net/mle-data/goodsread/interactions.parquet)
+
+Позже, вам понадобятся ещё файлы:
+
+- [candidates/inference/als_recommendations.parquet](https://storage.yandexcloud.net/mle-data/candidates/inference/als_recommendations.parquet)
+- [candidates/inference/content_recommendations.parquet](https://storage.yandexcloud.net/mle-data/candidates/inference/content_recommendations.parquet)
+- [candidates/training/als_recommendations.parquet](https://storage.yandexcloud.net/mle-data/candidates/training/als_recommendations.parquet)
+- [candidates/training/content_recommendations.parquet](https://storage.yandexcloud.net/mle-data/candidates/training/content_recommendations.parquet)
+
+Скачайте их в директорию локального репозитория. Для удобства вы можете воспользоваться командой wget:
+
+```
+wget https://storage.yandexcloud.net/mle-data/goodsread/books.parquet
+
+wget https://storage.yandexcloud.net/mle-data/goodsread/interactions.parquet
+```
+
+и
+
+```
+mkdir -p candidates/inference
+wget https://storage.yandexcloud.net/mle-data/candidates/inference/als_recommendations.parquet -P candidates/inference
+wget https://storage.yandexcloud.net/mle-data/candidates/inference/content_recommendations.parquet -P candidates/inference
+
+mkdir -p candidates/training
+wget https://storage.yandexcloud.net/mle-data/candidates/training/als_recommendations.parquet -P candidates/training
+wget https://storage.yandexcloud.net/mle-data/candidates/training/content_recommendations.parquet -P candidates/training
+```
+
 
 ## Откройте шаблон ноутбука
 
